@@ -1,6 +1,6 @@
 import {getLocationById} from "../services/location.service.js";
 
-export async function getLocationController(req, res) {
+export async function getLocationByIdController(req, res) {
     try {
         const id = req.params.id;
         const location = await getLocationById(id);
