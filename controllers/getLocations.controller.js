@@ -3,8 +3,8 @@ import {getAllLocations} from "../services/location.service.js";
 export async function getLocationsController(req, res) {
 
     try {
-        const name = req.query.name
-        const locations = await getAllLocations()
+        const queryParams = req.query
+        const locations = await getAllLocations(queryParams)
         return res.json({
             'status':'success',
             'data': locations

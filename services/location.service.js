@@ -1,7 +1,16 @@
 import {Location} from "../models/Location.model.js";
 
-const getAllLocations = async () => {
-    return Location.find({});
+const getAllLocations = async (queryParams) => {
+
+    let filter = {};
+    if (queryParams.name) {
+        filter.name = {$regex: '.*' + queryParams.name + '.*'};
+    }
+
+    if (queryParams.description) {
+        filter.description = {$regex: '.*' + queryParams.description + '.*'};
+    }
+    return Location.find(filter);
 };
 
 const getLocationById = async (id) => {
@@ -24,11 +33,11 @@ const updateLocation = async (id, data) => {
     const {name, description, image, coordinates} = data;
     const location = await getLocationById(id);
 
-    location.name = name ;
-    location.description = description ;
-    location.image = image ;
-    location.coordinates.longitude = coordinates.longitude ;
-    location.coordinates.latitude = coordinates.latitude ;
+    location.name = name;
+    location.description = description;
+    location.image = image;
+    location.coordinates.longitude = coordinates.longitude;
+    location.coordinates.latitude = coordinates.latitude;
 
     await location.save();
 
@@ -37,9 +46,9 @@ const updateLocation = async (id, data) => {
 
 const deleteLocation = async (id) => {
 
-    const status = await Location.findByIdAndDelete(id);
+    const isLocationDeleted = await Location.findByIdAndDelete(id);
 
-    if (!status) {
+    if (!isLocationDeleted) {
         throw new Error('Location not found');
     }
 };
