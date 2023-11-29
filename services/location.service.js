@@ -24,31 +24,20 @@ const getLocationById = async (id) => {
     return location;
 };
 
-const createLocation = async (body) => {
-    const location = new Location(body);
+const createLocation = async (requestBody) => {
+    const location = new Location(requestBody);
     return location.save();
 };
 
-const updateLocation = async (id, data) => {
-    const {name, description, image, coordinates} = data;
-    const location = await getLocationById(id);
-
-    location.name = name;
-    location.description = description;
-    location.image = image;
-    location.coordinates.longitude = coordinates.longitude;
-    location.coordinates.latitude = coordinates.latitude;
-
-    await location.save();
-
-    return location
+const updateLocation = async (id, requestBody) => {
+    return await Location.findOneAndUpdate({_id:id}, requestBody, {new:true})
 };
 
 const deleteLocation = async (id) => {
 
-    const isLocationDeleted = await Location.findByIdAndDelete(id);
+    const isLocationWasFound = await Location.findByIdAndDelete(id);
 
-    if (!isLocationDeleted) {
+    if (!isLocationWasFound) {
         throw new Error('Location not found');
     }
 };
