@@ -30,14 +30,20 @@ const createLocation = async (requestBody) => {
 };
 
 const updateLocation = async (id, requestBody) => {
-    return await Location.findOneAndUpdate({_id:id}, requestBody, {new:true})
+    const isLocationFound = await Location.findOneAndUpdate({_id: id}, requestBody, {new: true});
+
+    if (!isLocationFound) {
+        throw new Error('Location not found');
+    }
+
+    return location
 };
 
 const deleteLocation = async (id) => {
 
-    const isLocationWasFound = await Location.findByIdAndDelete(id);
+    const isLocationFound = await Location.findByIdAndDelete(id);
 
-    if (!isLocationWasFound) {
+    if (!isLocationFound) {
         throw new Error('Location not found');
     }
 };
