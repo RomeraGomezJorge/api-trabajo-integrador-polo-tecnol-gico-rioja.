@@ -15,32 +15,48 @@ export function validateLocationInput(req, res, next) {
         }).required(),
         contact: joi.object({
             phone: joi.string(),
-            email: joi.string(),
+            email: joi.string().email(),
         }),
         additional_info: joi.object({
-            website: joi.string(),
-            days_of_operation: joi.array().items(joi.string()).required(),
+            website: joi.string().uri(),
+            days_of_operation: joi.array().items(
+                joi.string().valid(
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday",
+                    "Sunday"
+                )
+            ).required(),
             business_hours: joi.object({
-                opening: joi.string().required(),
-                closing: joi.string().required(),
+                opening: joi.string()
+                    .required()
+                    .regex(/^([01]\d|2[0-3]):[0-5]\d$/)
+                    .message('Opening time should be in HH:MM format'),
+                closing: joi.string()
+                    .required()
+                    .regex(/^([01]\d|2[0-3]):[0-5]\d$/)
+                    .message('Closing time should be in HH:MM format'),
             }).required(),
             coordinates: joi.object({
                 latitude: joi.number().required(),
                 longitude: joi.number().required(),
             }).required(),
             social_media: joi.object({
-                facebook: joi.string(),
-                twitter: joi.string(),
-                linkedin: joi.string(),
+                facebook: joi.string().uri(),
+                twitter: joi.string().uri(),
+                linkedin: joi.string().uri(),
             }),
         }),
-    });
+    }).options({ abortEarly: false }); // Para que devuelva todos los errores en lugar de detenerse en el primer error.
 
     const { error } = Schema.validate(body);
 
     if (error) {
         return res.status(400).json({
-            message: error.details[0].message,
+            message: error.details.map(detail => detail.message),
         });
     }
 
