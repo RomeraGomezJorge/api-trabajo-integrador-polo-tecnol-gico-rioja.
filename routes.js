@@ -1,10 +1,13 @@
 import {Router} from "express";
 import {validateLocationInput} from "./middleware/validateLocationInput.js";
-import {getLocationByIdController} from "./controllers/getLocationById.controller.js";
-import {getLocationsController} from "./controllers/getLocations.controller.js";
-import {postLocationController} from "./controllers/postLocation.controller.js";
-import {patchLocationController} from "./controllers/patchLocation.controller.js";
-import {deleteLocationController} from "./controllers/deleteLocation.controller.js";
+import {
+    deleteLocationController,
+    getLocationByIdController,
+    getLocationsController,
+    patchLocationController,
+    postLocationController
+} from "./controllers/location.controller.js";
+
 
 const router = Router();
 
