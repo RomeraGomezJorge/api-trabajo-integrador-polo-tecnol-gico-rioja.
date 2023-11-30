@@ -30,9 +30,9 @@ const createLocation = async (requestBody) => {
 };
 
 const updateLocation = async (id, requestBody) => {
-    const isLocationFound = await Location.findOneAndUpdate({_id: id}, requestBody, {new: true});
+    const location = await Location.findOneAndUpdate({_id: id}, requestBody, {new: true});
 
-    if (!isLocationFound) {
+    if (!location) {
         throw new Error('Location not found');
     }
 

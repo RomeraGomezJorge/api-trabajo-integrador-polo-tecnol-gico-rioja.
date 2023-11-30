@@ -49,7 +49,10 @@ const locationSchema = new Schema({
             type: String,
         },
         days_of_operation: {
-            type: [String],
+            type: [{
+                type: String,
+                enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+            }],
             required: true,
         },
         business_hours: {
