@@ -17,7 +17,7 @@ Este repositorio contiene un servidor Express diseñado para gestionar puntos de
 - [npm](https://www.npmjs.com/): v8.19.4 o superior
 - [Git](https://git-scm.com/): Asegúrate de tener Git instalado en tu sistema.
 
-## Configuración de la Base de Datos
+## Inicialización de la Base de Datos
 Este proyecto utiliza MongoDB Atlas para la base de datos. Asegúrate de tener las credenciales de conexión configuradas adecuadamente.
 
 1. Renombra el archivo `.env.example` a `.env` en el directorio raíz del proyecto.
@@ -78,70 +78,31 @@ El servidor Express estará en funcionamiento y escuchando en el puerto 3000 por
 
    ```json
     {
-      // Nombre (debe ser una cadena no vacía y requerida)
       "name": "Ejemplo Location",
-   
-      // Descripción (opcional, puede ser una cadena)
       "description": "Descripción de ejemplo",
-   
-      // Imagen (opcional, debe ser una cadena con un valor predeterminado si no se proporciona)
       "image": "example.png",
-   
-      // Dirección (debe ser un objeto con las siguientes propiedades)
       "address": {
-         
-         // Calle (debe ser una cadena no vacía y requerida)
          "street": "Calle Ejemplo",
-   
-         // Ciudad (debe ser una cadena no vacía y requerida)
          "city": "Ciudad Ejemplo",
-   
-         // Estado (debe ser una cadena no vacía y requerida)
          "state": "Estado Ejemplo",
-   
-         // Código postal (debe ser una cadena no vacía y requerida)
          "postal_code": "12345",
-   
-         // País (debe ser una cadena no vacía y requerida)
          "country": "País Ejemplo"
       },
-   
-      // Información de contacto (opcional)
       "contact": {
-         
-         // Teléfono (puede ser una cadena)
          "phone": "123-456-7890",
-   
-         // Correo electrónico (debe ser una cadena válida de correo electrónico)
          "email": "ejemplo@example.com"
       },
-   
-      // Información adicional (opcional)
       "additional_info": {
-         
-         // Sitio web (opcional, debe ser una cadena válida de URI)
          "website": "http://www.ejemplo.com",
-   
-         // Días de operación (debe ser un arreglo de días válidos y requerido)
          "days_of_operation": ["Monday", "Wednesday", "Friday"],
-   
-         // Horario comercial (debe ser un objeto con las siguientes propiedades y requerido)
          "business_hours": {
-            
-            // Hora de apertura (debe estar en formato HH:MM y requerida)
             "opening": "09:00",
-   
-            // Hora de cierre (debe estar en formato HH:MM y requerida)
             "closing": "18:00"
          },
-   
-         // Coordenadas (debe ser un objeto con latitud y longitud numéricas requeridas)
          "coordinates": {
             "latitude": 40.7128,
             "longitude": -74.0060
          },
-   
-         // Redes sociales (opcional, cada una debe ser una cadena válida de URI)
          "social_media": {
             "facebook": "https://www.facebook.com/ejemplo",
             "twitter": "https://twitter.com/ejemplo",
@@ -149,7 +110,6 @@ El servidor Express estará en funcionamiento y escuchando en el puerto 3000 por
          }
       }
    }
-
    ```
 
 

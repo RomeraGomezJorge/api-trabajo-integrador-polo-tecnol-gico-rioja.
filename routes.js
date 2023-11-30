@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {validateLocationInput} from "./middleware/validateLocationInput.js";
+import {validateLocationInput} from "./middlewares/validateLocationInput.js";
 import {
     deleteLocationController,
     getLocationByIdController,
@@ -12,6 +12,7 @@ import {
 const router = Router();
 
 router.post('/', validateLocationInput, postLocationController);
+
 router.patch('/:id', validateLocationInput, patchLocationController);
 router.get('/',getLocationsController)
 router.get('/:id', getLocationByIdController);
