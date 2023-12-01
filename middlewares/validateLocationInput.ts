@@ -1,11 +1,12 @@
+import { NextFunction, Request, Response } from "express";
 import joi from "joi";
 
-export function validateLocationInput(req, res, next) {
+export function validateLocationInput(req:Request, res:Response, next:NextFunction) {
     const { body } = req;
     const Schema = joi.object({
         name: joi.string().required(),
-        description: joi.string().allow(''),
-        image: joi.string().allow(''),
+        description: joi.string().allow(""),
+        image: joi.string().allow(""),
         address: joi.object({
             street: joi.string().required(),
             city: joi.string().required(),
@@ -14,11 +15,11 @@ export function validateLocationInput(req, res, next) {
             country: joi.string().required(),
         }).required(),
         contact: joi.object({
-            phone: joi.string().allow(''),
-            email: joi.string().email().allow(''),
+            phone: joi.string().allow(""),
+            email: joi.string().email().allow(""),
         }),
         additional_info: joi.object({
-            website: joi.string().uri().allow(''),
+            website: joi.string().uri().allow(""),
             days_of_operation: joi.array().items(
                 joi.string().valid(
                     "Monday",
@@ -34,20 +35,20 @@ export function validateLocationInput(req, res, next) {
                 opening: joi.string()
                     .required()
                     .regex(/^([01]\d|2[0-3]):[0-5]\d$/)
-                    .message('Opening time should be in HH:MM format'),
+                    .message("Opening time should be in HH:MM format"),
                 closing: joi.string()
                     .required()
                     .regex(/^([01]\d|2[0-3]):[0-5]\d$/)
-                    .message('Closing time should be in HH:MM format'),
+                    .message("Closing time should be in HH:MM format"),
             }).required(),
             coordinates: joi.object({
                 latitude: joi.number().required(),
                 longitude: joi.number().required(),
             }).required(),
             social_media: joi.object({
-                facebook: joi.string().uri().allow(''),
-                twitter: joi.string().uri().allow(''),
-                linkedin: joi.string().uri().allow(''),
+                facebook: joi.string().uri().allow(""),
+                twitter: joi.string().uri().allow(""),
+                linkedin: joi.string().uri().allow(""),
             }),
         }),
     }).options({ abortEarly: false });

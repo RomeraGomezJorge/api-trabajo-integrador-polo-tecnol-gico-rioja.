@@ -1,11 +1,14 @@
-import {Location} from "../models/Location.model.js";
+import { ILocation } from "../interfaces/ILocation";
+import { ILocationFilter } from "../interfaces/IFilterLocation";
+import {Location} from "../models/Location.model";
 
 /**
  * Retrieves all locations based on the provided query parameters.
  */
-const getAllLocations = async (queryParams) => {
+const getAllLocations = async (queryParams:ILocationFilter):Promise<ILocation[]> => {
     try {
-        let filter = {};
+        let filter:ILocationFilter = {};
+
         if (queryParams.name) {
             filter.name = {$regex: '.*' + queryParams.name + '.*'};
         }
@@ -23,12 +26,14 @@ const getAllLocations = async (queryParams) => {
 /**
  * Retrieves a single location by its ID.
  */
-const getLocationById = async (id) => {
+const getLocationById = async (id:string):Promise<ILocation> => {
     try {
         const location = await Location.findById(id);
 
         if (!location) {
-            throw new Error('Location not found');
+            const error = new Error('Location not found')
+            Object.assign(error, {code: 404})
+            throw error;            
         }
 
         return location;
@@ -40,7 +45,7 @@ const getLocationById = async (id) => {
 /**
  * Creates a new location using the provided data.
  */
-const createLocation = async (data) => {
+const createLocation = async (data:ILocation):Promise<ILocation> => {
     try {
         const location = new Location(data);
         return location.save();
@@ -52,7 +57,7 @@ const createLocation = async (data) => {
 /**
  * Updates a location partially using the provided data and ID.
  */
-const updateLocation = async (id, requestBody) => {
+const updateLocation = async (id:string, requestBody:ILocation):Promise<ILocation> => {
     try {
         const location = await Location.findOneAndUpdate({_id: id}, requestBody, {new: true});
 
@@ -71,13 +76,16 @@ const updateLocation = async (id, requestBody) => {
 /**
  * Deletes a location based on its ID.
  */
-const deleteLocation = async (id) => {
+const deleteLocation = async (id:string) => {
     try {
         const isLocationFound = await Location.findByIdAndDelete(id);
 
         if (!isLocationFound) {
-            throw new Error('Location not found');
+            const error = new Error('Location not found')
+            Object.assign(error, {code: 404})
+            throw error;            
         }
+
     } catch (e) {
         throw e;
     }

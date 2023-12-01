@@ -1,7 +1,7 @@
 #  API Proyecto Integrador - Puntos de interés universitarios
 
 <p> 
-<img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E" alt="JavaScript" style="max-width: 100%;"/>  
+ <img src="https://img.shields.io/badge/TypeScript-323330?style=for-the-badge&logo=typescript&logoColor=007ACC">  
 
 <img src="https://img.shields.io/badge/Node.js-323330?style=for-the-badge&logo=node.js&logoColor=43853D"  style="max-width: 100%;"/>
 

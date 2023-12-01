@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+import { ILocation } from "../interfaces/ILocation";
 
 const { Schema, model } = mongoose;
 
-const locationSchema = new Schema({
+const locationSchema = new Schema<ILocation>({
     name: {
         type: String,
         required: true,
