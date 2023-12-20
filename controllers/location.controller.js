@@ -18,8 +18,8 @@ async function getLocationsController(req, res) {
             'data': locations
         });
     } catch (e) {
-        return res.status(500).json({
-            'status': 'fail',
+        return res.status(e.code?? 500).json({
+            'status': 'error',
             'message': e.message
         });
     }
@@ -37,8 +37,8 @@ async function getLocationByIdController(req, res) {
             'data': location
         });
     } catch (e) {
-        return res.status(500).json({
-            'status': 'fail',
+        return res.status(e.code?? 500).json({
+            'status': 'error',
             'message': e.message
         });
     }
@@ -56,8 +56,8 @@ async function postLocationController(req, res) {
             'data': location
         });
     } catch (e) {
-        return res.status(500).json({
-            'status': 'fail',
+        return res.status(e.code?? 500).json({
+            'status': 'error',
             'message': e.message
         });
     }
@@ -76,8 +76,9 @@ async function patchLocationController(req, res) {
             'data': location
         });
     } catch (e) {
-        return res.status(500).json({
-            'status': 'fail',
+
+        return res.status(e.code?? 500).json({
+            'status': 'error',
             'message': e.message
         });
     }
@@ -92,8 +93,8 @@ async function deleteLocationController(req, res) {
         deleteLocation(id);
         res.status(200).json({'status': 'success'});
     } catch (e) {
-        res.status(500).json({
-            'status': 'fail',
+        res.status(e.code?? 500).json({
+            'status': 'error',
             'message': e.message
         });
     }

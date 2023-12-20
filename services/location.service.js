@@ -1,64 +1,86 @@
-import { Location } from "../models/Location.model.js";
+import {Location} from "../models/Location.model.js";
 
 /**
  * Retrieves all locations based on the provided query parameters.
  */
 const getAllLocations = async (queryParams) => {
-    let filter = {};
-    if (queryParams.name) {
-        filter.name = {$regex: '.*' + queryParams.name + '.*'};
-    }
+    try {
+        let filter = {};
+        if (queryParams.name) {
+            filter.name = {$regex: '.*' + queryParams.name + '.*'};
+        }
 
-    if (queryParams.description) {
-        filter.description = {$regex: '.*' + queryParams.description + '.*'};
-    }
+        if (queryParams.description) {
+            filter.description = {$regex: '.*' + queryParams.description + '.*'};
+        }
 
-    return Location.find(filter);
+        return Location.find(filter);
+    } catch (e) {
+        throw e;
+    }
 };
 
 /**
  * Retrieves a single location by its ID.
  */
 const getLocationById = async (id) => {
-    const location = await Location.findById(id);
+    try {
+        const location = await Location.findById(id);
 
-    if (!location) {
-        throw new Error('Location not found');
+        if (!location) {
+            throw new Error('Location not found');
+        }
+
+        return location;
+    } catch (e) {
+        throw e;
     }
-
-    return location;
 };
 
 /**
  * Creates a new location using the provided data.
  */
 const createLocation = async (data) => {
-    const location = new Location(data);
-    return location.save();
+    try {
+        const location = new Location(data);
+        return location.save();
+    } catch (e) {
+        throw e;
+    }
 };
 
 /**
  * Updates a location partially using the provided data and ID.
  */
 const updateLocation = async (id, requestBody) => {
-    const location = await Location.findOneAndUpdate({_id: id}, requestBody, {new: true});
+    try {
+        const location = await Location.findOneAndUpdate({_id: id}, requestBody, {new: true});
 
-    if (!location) {
-        throw new Error('Location not found');
+        if (!location) {
+            const error = new Error('Location not found')
+            Object.assign(error, {code: 404})
+            throw error;
+        }
+
+        return location;
+    } catch (e) {
+        throw e;
     }
-
-    return location;
 };
 
 /**
  * Deletes a location based on its ID.
  */
 const deleteLocation = async (id) => {
-    const isLocationFound = await Location.findByIdAndDelete(id);
+    try {
+        const isLocationFound = await Location.findByIdAndDelete(id);
 
-    if (!isLocationFound) {
-        throw new Error('Location not found');
+        if (!isLocationFound) {
+            throw new Error('Location not found');
+        }
+    } catch (e) {
+        throw e;
     }
 };
 
-export { getAllLocations, getLocationById, createLocation, updateLocation, deleteLocation };
+export {getAllLocations, getLocationById, createLocation, updateLocation, deleteLocation};
