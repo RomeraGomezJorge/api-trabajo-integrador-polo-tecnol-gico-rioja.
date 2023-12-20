@@ -4,8 +4,8 @@ export function validateLocationInput(req, res, next) {
     const { body } = req;
     const Schema = joi.object({
         name: joi.string().required(),
-        description: joi.string(),
-        image: joi.string().default("default.png"),
+        description: joi.string().allow(''),
+        image: joi.string().allow(''),
         address: joi.object({
             street: joi.string().required(),
             city: joi.string().required(),
@@ -14,11 +14,11 @@ export function validateLocationInput(req, res, next) {
             country: joi.string().required(),
         }).required(),
         contact: joi.object({
-            phone: joi.string(),
-            email: joi.string().email(),
+            phone: joi.string().allow(''),
+            email: joi.string().email().allow(''),
         }),
         additional_info: joi.object({
-            website: joi.string().uri(),
+            website: joi.string().uri().allow(''),
             days_of_operation: joi.array().items(
                 joi.string().valid(
                     "Monday",
@@ -45,12 +45,13 @@ export function validateLocationInput(req, res, next) {
                 longitude: joi.number().required(),
             }).required(),
             social_media: joi.object({
-                facebook: joi.string().uri(),
-                twitter: joi.string().uri(),
-                linkedin: joi.string().uri(),
+                facebook: joi.string().uri().allow(''),
+                twitter: joi.string().uri().allow(''),
+                linkedin: joi.string().uri().allow(''),
             }),
         }),
-    }).options({ abortEarly: false }); // Para que devuelva todos los errores en lugar de detenerse en el primer error.
+    }).options({ abortEarly: false });
+    // Para que devuelva todos los errores en lugar de detenerse en el primer error.
 
     const { error } = Schema.validate(body);
 
