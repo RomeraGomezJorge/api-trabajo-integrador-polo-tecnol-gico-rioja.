@@ -112,4 +112,9 @@ El servidor Express estará en funcionamiento y escuchando en el puerto 3000 por
    }
    ```
 
+## Nota sobre la API
+
+El front de esta aplicación se encuentra en un repositorio separado. Puedes encontrar la APP en el siguiente enlace: [Repositorio de la APP](https://github.com/RomeraGomezJorge/app-trabajo-integrador-polo-tecnologico-rioja).
+
+
 
